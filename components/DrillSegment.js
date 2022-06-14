@@ -1,14 +1,18 @@
 import React from "react";
 
-import { Badge } from "react-bootstrap";
-import { AiFillStar } from "react-icons/ai";
+import { useOffCanvas } from "../pages/index";
 
-export default function DrillSegment({ title, tags, stars }) {
+import DrillSegmentTags from "./DrillSegmentTags";
+import DrillSegmentStars from "./DrillSegmentStars";
+
+export default function DrillSegment(drill) {
   const segHeight = 180;
   const segWidth = 300;
   const segDimFactor = 1;
+  const { showDrill } = useOffCanvas();
   return (
     <div
+      onClick={() => showDrill(drill)}
       className="border border-1 d-flex flex-column justify-content-between pt-4 ps-3 pb-4 pr-3 bg-white mb-3 me-3"
       style={{
         minWidth: segWidth * segDimFactor,
@@ -19,31 +23,10 @@ export default function DrillSegment({ title, tags, stars }) {
       }}
     >
       <div className="w-100 d-flex align-items-center">
-        <h2 className="m-0 p-0 bold">{title}</h2>
+        <h2 className="m-0 p-0 bold">{drill.title}</h2>
       </div>
-      <div
-        className="w-100 d-flex align-items-center"
-        style={{ overflowX: "hidden" }}
-      >
-        {tags.map((tag, index) => (
-          <h3 key={`${title}_${tag}_${index}`} className="m-0 p-0 me-3">
-            <Badge bg="primary">{tag}</Badge>
-          </h3>
-        ))}
-      </div>
-      <div className="w-100 d-flex align-items-center">
-        {[...Array(5)].map((_, index) =>
-          index < stars ? (
-            <AiFillStar color="gold" size={30} key={`${title}_star_${index}`} />
-          ) : (
-            <AiFillStar
-              color="lightgrey"
-              size={30}
-              key={`${title}_star_${index}`}
-            />
-          )
-        )}
-      </div>
+      <DrillSegmentTags title={drill.title} tags={drill.tags} />
+      <DrillSegmentStars title={drill.title} stars={drill.stars} />
     </div>
   );
 }
