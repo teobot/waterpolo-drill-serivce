@@ -4,9 +4,13 @@ import DrillContainer from "../components/DrillContainer";
 
 import { Container, Offcanvas } from "react-bootstrap";
 
-import data from "../data/index";
+import dbConnect from "../lib/dbConnect";
+
+// import data from "../data/index";
 import DrillSegmentTags from "../components/DrillSegmentTags";
 import DrillSegmentStars from "../components/DrillSegmentStars";
+
+import Category from "../models/Category";
 
 const OffCanvasContext = createContext();
 
@@ -14,7 +18,7 @@ export const useOffCanvas = () => {
   return useContext(OffCanvasContext);
 };
 
-export default function Home() {
+export default function Home({ categories }) {
   const [show, setShow] = useState(false);
   const [displayDrill, setDisplayDrill] = useState(null);
 
@@ -32,7 +36,7 @@ export default function Home() {
   return (
     <>
       <Offcanvas
-        style={{borderRadius: "15px 15px 0px 0px"}}
+        style={{ borderRadius: "15px 15px 0px 0px" }}
         className="h-75"
         responsive="xxl"
         placement="bottom"
@@ -49,7 +53,7 @@ export default function Home() {
             <DrillSegmentTags
               centered
               title={displayDrill?.title || ""}
-              tags={displayDrill?.tags || []}
+              tags={displayDrill?.tags.split(",") || []}
             />
           </div>
           <div className="w-100 mb-3 mb-3">
@@ -79,15 +83,31 @@ export default function Home() {
       </Offcanvas>
       <Container fluid>
         <OffCanvasContext.Provider value={{ hideDrill, showDrill }}>
-          {data.map((category) => (
+          {categories.map((category) => (
             <DrillContainer
-              key={category.id}
-              title={category.title}
-              drills={category.drills}
+              key={category._id}
+              {...category}
             />
           ))}
         </OffCanvasContext.Provider>
       </Container>
     </>
   );
+}
+
+export async function getServerSideProps(context) {
+  try {
+    await dbConnect();
+
+    const categories = await Category.find({});
+
+    return {
+      props: {
+        categories: JSON.parse(JSON.stringify(categories)),
+      }, // will be passed to the page component as props
+    };
+  } catch (error) {
+    console.log({ error });
+    return { props: {} };
+  }
 }

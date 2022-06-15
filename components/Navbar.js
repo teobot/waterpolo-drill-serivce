@@ -12,22 +12,27 @@ export default function Navigation() {
   const router = useRouter();
 
   return (
-    <Navbar>
+    <Navbar bg="light" expand="lg">
       <Container fluid className="d-flex justify-content-end">
         {user?.isLoggedIn ? (
-          <Nav.Link
-            href="/api/logout"
-            onClick={async (e) => {
-              e.preventDefault();
-              mutateUser(
-                await fetchJson("/api/logout", { method: "POST" }),
-                false
-              );
-              router.push("/");
-            }}
-          >
-            LOGOUT ({user?.user?.username})
-          </Nav.Link>
+          <>
+            <Nav.Link href="/">HOME</Nav.Link>
+            <Nav.Link href="/admin/category/new">NEW</Nav.Link>
+
+            <Nav.Link
+              href="/api/logout"
+              onClick={async (e) => {
+                e.preventDefault();
+                mutateUser(
+                  await fetchJson("/api/logout", { method: "POST" }),
+                  false
+                );
+                router.push("/");
+              }}
+            >
+              LOGOUT ({user?.user?.username})
+            </Nav.Link>
+          </>
         ) : (
           <Nav.Link href="/admin/login">LOGIN</Nav.Link>
         )}
