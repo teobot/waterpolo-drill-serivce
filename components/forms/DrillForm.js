@@ -1,11 +1,25 @@
 import React, { useState } from "react";
 
-import { Form } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 
-export default function DrillForm({ drill, editDrill }) {
+import { AiFillDelete } from "react-icons/ai";
+
+export default function DrillForm({ deleteDrill, drill, editDrill }) {
   const [drillForm, setDrillForm] = useState(drill);
+  const [edited, setEdited] = useState(false);
   return (
-    <div className="mb-4 p-2 border border-2 bg-white">
+    <div className="mb-4 p-2 border border-2 bg-white position-relative">
+      <div className="w-100 d-flex justify-content-end">
+        <Button
+          size="sm"
+          variant="danger"
+          onClick={() => {
+            deleteDrill(drillForm);
+          }}
+        >
+          <AiFillDelete />
+        </Button>
+      </div>
       <Form key={drill.id}>
         <Form.Group controlId="drill-title">
           <Form.Label>Title</Form.Label>
@@ -14,6 +28,7 @@ export default function DrillForm({ drill, editDrill }) {
             name="title"
             value={drillForm.title}
             onChange={(e) => {
+              setEdited(true);
               setDrillForm({
                 ...drillForm,
                 title: e.target.value,
@@ -28,6 +43,7 @@ export default function DrillForm({ drill, editDrill }) {
             name="tags"
             value={drillForm.tags}
             onChange={(e) => {
+              setEdited(true);
               setDrillForm({
                 ...drillForm,
                 tags: e.target.value,
@@ -42,6 +58,7 @@ export default function DrillForm({ drill, editDrill }) {
             name="stars"
             value={drillForm.stars}
             onChange={(e) => {
+              setEdited(true);
               setDrillForm({
                 ...drillForm,
                 stars: e.target.value,
@@ -57,6 +74,7 @@ export default function DrillForm({ drill, editDrill }) {
             name="instructions"
             value={drillForm.instructions}
             onChange={(e) => {
+              setEdited(true);
               setDrillForm({
                 ...drillForm,
                 instructions: e.target.value,
@@ -66,16 +84,18 @@ export default function DrillForm({ drill, editDrill }) {
         </Form.Group>
 
         {/* save button */}
-        <Form.Group controlId="drill-save">
-          <Form.Control
-            type="submit"
-            value="Save"
+        <div className="pt-2 w-100">
+          <Button
+            disabled={!edited}
+            variant={edited ? "success" : "primary"}
             onClick={(e) => {
-              e.preventDefault();
               editDrill(drillForm);
+              setEdited(false);
             }}
-          />
-        </Form.Group>
+          >
+            Save
+          </Button>
+        </div>
       </Form>
     </div>
   );

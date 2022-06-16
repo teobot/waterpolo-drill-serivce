@@ -10,7 +10,7 @@ import Link from "next/link";
 export default function DrillContainer({ _id, title, drills }) {
   const { user } = useUser();
   return (
-    <div className="pb-4 position-relative">
+    <div className="pb-3 pt-3 position-relative">
       <div className="w-100 d-flex justify-content-between align-items-center">
         <h1 className="font600" style={{ fontSize: "2rem" }}>
           {title}

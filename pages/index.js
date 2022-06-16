@@ -6,7 +6,6 @@ import { Container, Offcanvas } from "react-bootstrap";
 
 import dbConnect from "../lib/dbConnect";
 
-// import data from "../data/index";
 import DrillSegmentTags from "../components/DrillSegmentTags";
 import DrillSegmentStars from "../components/DrillSegmentStars";
 
@@ -53,7 +52,7 @@ export default function Home({ categories }) {
             <DrillSegmentTags
               centered
               title={displayDrill?.title || ""}
-              tags={displayDrill?.tags.split(",") || []}
+              tags={displayDrill?.tags || []}
             />
           </div>
           <div className="w-100 mb-3 mb-3">
@@ -84,10 +83,7 @@ export default function Home({ categories }) {
       <Container fluid>
         <OffCanvasContext.Provider value={{ hideDrill, showDrill }}>
           {categories.map((category) => (
-            <DrillContainer
-              key={category._id}
-              {...category}
-            />
+            <DrillContainer key={category._id} {...category} />
           ))}
         </OffCanvasContext.Provider>
       </Container>

@@ -12,7 +12,7 @@ export default function Navigation() {
   const router = useRouter();
 
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" expand="lg p-0">
       <Container fluid className="d-flex justify-content-end">
         {user?.isLoggedIn ? (
           <>

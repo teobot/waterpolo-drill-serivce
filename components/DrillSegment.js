@@ -25,7 +25,7 @@ export default function DrillSegment(drill) {
       <div className="w-100 d-flex align-items-center">
         <h2 className="m-0 p-0 bold">{drill.title}</h2>
       </div>
-      <DrillSegmentTags title={drill.title} tags={drill.tags.split(",")} />
+      <DrillSegmentTags title={drill.title} tags={drill.tags} />
       <DrillSegmentStars title={drill.title} stars={drill.stars} />
     </div>
   );

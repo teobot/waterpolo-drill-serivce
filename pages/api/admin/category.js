@@ -27,7 +27,12 @@ export default withIronSessionApiRoute(async function userRoute(req, res) {
         }
         const category = new Category({
           title,
-          drills,
+          drills: drills.map((drill) => {
+            return {
+              ...drill,
+              tags: drill.tags.split(",").map((tag) => tag.trim()),
+            };
+          }),
         });
         await category.save();
         return res.send({ message: "category created successfully" });
@@ -45,7 +50,12 @@ export default withIronSessionApiRoute(async function userRoute(req, res) {
 
         // update the category
         categoryToUpdate.title = title;
-        categoryToUpdate.drills = drills;
+        categoryToUpdate.drills = drills.map((drill) => {
+          return {
+            ...drill,
+            tags: drill.tags.split(",").map((tag) => tag.trim()),
+          };
+        });
 
         await categoryToUpdate.save();
 

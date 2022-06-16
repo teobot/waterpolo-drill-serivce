@@ -15,7 +15,16 @@ export default function Edit({ category }) {
         <CategoryForm
           formId="category-new-form"
           newCategory={false}
-          categoryForm={category}
+          categoryForm={{
+            _id: category._id,
+            title: category.title,
+            drills: category.drills.map((drill) => {
+              return {
+                ...drill,
+                tags: drill.tags.join(", "),
+              };
+            }),
+          }}
         />
       </Container>
     </>
