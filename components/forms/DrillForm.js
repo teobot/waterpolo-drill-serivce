@@ -83,11 +83,11 @@ export default function DrillForm({ deleteDrill, drill, editDrill }) {
           />
         </Form.Group>
 
-        {/* save button */}
-        <div className="pt-2 w-100">
+        <div className="d-grid gap-2 p-2">
           <Button
+            size="sm"
             disabled={!edited}
-            variant={edited ? "success" : "primary"}
+            variant={edited ? "warning" : "secondary"}
             onClick={(e) => {
               editDrill(drillForm);
               setEdited(false);

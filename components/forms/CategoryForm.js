@@ -32,11 +32,7 @@ export default function CategoryForm({
     return err;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log({
-      form,
-    });
+  const handleSubmit = () => {
     const errs = formValidate();
     if (errs.length === 0) {
       postData(form);
@@ -137,7 +133,7 @@ export default function CategoryForm({
           ))}
         </div>
       )}
-      <Form id={formId} onSubmit={handleSubmit}>
+      <Form id={formId}>
         <Form.Group className="mb-2" controlId="blog-title">
           <Form.Label>Title</Form.Label>
           <Form.Control
@@ -149,7 +145,7 @@ export default function CategoryForm({
           />
         </Form.Group>
 
-        <Form.Group className="mb-2" controlId="blog-drills">
+        <Form.Group controlId="blog-drills">
           <Form.Label>Drills</Form.Label>
           <div>
             {form.drills.map((drill, i) => (
@@ -161,18 +157,29 @@ export default function CategoryForm({
               />
             ))}
           </div>
-          <div className="">
-            <Button variant="success" onClick={newDrill}>
+          <div className="d-grid gap-2">
+            <Button variant="success" onClick={newDrill} size="md">
               New Drill
             </Button>
           </div>
         </Form.Group>
 
-        <Form.Group className="mt-5">
-          <Button disabled={isLoading} type="submit" variant={"primary"}>
+        <div
+          style={{ height: 3, width: "100%", backgroundColor: "lightgrey" }}
+          className="mb-5 mt-5"
+        />
+
+        <div className="d-grid gap-2 mb-5">
+          <Button
+            onClick={handleSubmit}
+            disabled={isLoading}
+            variant={"primary"}
+            size="lg"
+          >
             {newCategory ? "Submit" : "Update"}
           </Button>
-        </Form.Group>
+        </div>
+        <br />
       </Form>
     </>
   );
