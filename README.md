@@ -2,6 +2,8 @@
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000)
 [![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)](https://github.com/teobot/wdrill#readme)
 
+![image](https://github.com/teobot/bucket/blob/main/portfolio/wdrill-min.png?raw=true)
+
 > this is a web app for mobile containing information on waterpolo drills
 
 ### 🏠 [Homepage](https://wdrill.vercel.app/)
